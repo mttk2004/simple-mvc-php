@@ -9,6 +9,6 @@
 	<title>Document</title>
 </head>
 <body>
-	Home
+	About
 </body>
 </html>

@@ -21,17 +21,24 @@ class Router
 	public array $routes = [];
 	
 	/**
-	 * Adds a route to the routes array.
+	 * Adds a new route to the routes array.
 	 *
-	 * @param string $method     The HTTP method.
+	 * @param string $method     The HTTP method of the route (e.g., GET, POST).
 	 * @param string $uri        The URI of the route.
 	 * @param string $controller The controller to handle the route.
 	 *
-	 * @return void
+	 * @return Router Returns the current Router instance for method chaining.
 	 */
-	private function add(string $method, string $uri, string $controller): void
+	private function add(string $method, string $uri, string $controller): Router
 	{
-		$this->routes[$method][$uri] = $controller;
+		$this->routes[] = [
+				'method' => $method,
+				'uri' => $uri,
+				'controller' => $controller,
+				'middleware' => null,
+		];
+		
+		return $this;
 	}
 	
 	/**
@@ -40,11 +47,11 @@ class Router
 	 * @param string $uri        The URI of the route.
 	 * @param string $controller The controller to handle the route.
 	 *
-	 * @return void
+	 * @return Router
 	 */
-	public function get(string $uri, string $controller): void
+	public function get(string $uri, string $controller): Router
 	{
-		$this->add('GET', $uri, $controller);
+		return $this->add('GET', $uri, $controller);
 	}
 	
 	/**
@@ -53,11 +60,11 @@ class Router
 	 * @param string $uri        The URI of the route.
 	 * @param string $controller The controller to handle the route.
 	 *
-	 * @return void
+	 * @return Router
 	 */
-	public function post(string $uri, string $controller): void
+	public function post(string $uri, string $controller): Router
 	{
-		$this->add('POST', $uri, $controller);
+		return $this->add('POST', $uri, $controller);
 	}
 	
 	/**
@@ -66,11 +73,11 @@ class Router
 	 * @param string $uri        The URI of the route.
 	 * @param string $controller The controller to handle the route.
 	 *
-	 * @return void
+	 * @return Router
 	 */
-	public function put(string $uri, string $controller): void
+	public function put(string $uri, string $controller): Router
 	{
-		$this->add('PUT', $uri, $controller);
+		return $this->add('PUT', $uri, $controller);
 	}
 	
 	/**
@@ -79,11 +86,11 @@ class Router
 	 * @param string $uri        The URI of the route.
 	 * @param string $controller The controller to handle the route.
 	 *
-	 * @return void
+	 * @return Router
 	 */
-	public function patch(string $uri, string $controller): void
+	public function patch(string $uri, string $controller): Router
 	{
-		$this->add('PATCH', $uri, $controller);
+		return $this->add('PATCH', $uri, $controller);
 	}
 	
 	/**
@@ -92,11 +99,11 @@ class Router
 	 * @param string $uri        The URI of the route.
 	 * @param string $controller The controller to handle the route.
 	 *
-	 * @return void
+	 * @return Router
 	 */
-	public function delete(string $uri, string $controller): void
+	public function delete(string $uri, string $controller): Router
 	{
-		$this->add('DELETE', $uri, $controller);
+		return $this->add('DELETE', $uri, $controller);
 	}
 	
 	/**
@@ -113,11 +120,13 @@ class Router
 		// Find the route
 		foreach ($this->routes as $route) {
 			if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-				// Check if the route has middleware
-				Middleware::resolve($route['middleware']);
+				// If middleware is set, resolve it
+				if ($route['middleware']) {
+					Middleware::resolve($route['middleware']);
+				}
 				
 				// Call the controller
-				require_once BASE_PATH . "Http/controller/{$route['controller']}.php";
+				require_once BASE_PATH . "./Http/controllers/{$route['controller']}.php";
 				exit;
 			}
 		}

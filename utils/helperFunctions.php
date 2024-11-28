@@ -56,10 +56,11 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
  *
  * @return void
  */
-function abort(int $statusCode = 404): void
+#[NoReturn] function abort(int $statusCode = 404): void
 {
 	http_response_code($statusCode);
-	require_once(BASE_PATH . '/resources/views/' . $statusCode . '.view.php');
+	require_once(BASE_PATH . 'resources/views/' . $statusCode . '.view.php');
+	exit();
 }
 
 /**
@@ -74,7 +75,7 @@ function view(string $view, array $data): void
 {
 	extract($data);
 	
-	$viewPath = BASE_PATH . '/resources/views/' . $view . '.view.php';
+	$viewPath = BASE_PATH . 'resources/views/' . $view . '.view.php';
 	if (!file_exists($viewPath)) {
 		abort();
 	}
