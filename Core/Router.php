@@ -15,42 +15,100 @@ use JetBrains\PhpStorm\NoReturn;
  */
 class Router
 {
+	/**
+	 * @var array $routes The array of routes.
+	 */
 	public array $routes = [];
 	
-	private function add($method, $uri, $controller): void
+	/**
+	 * Adds a route to the routes array.
+	 *
+	 * @param string $method     The HTTP method.
+	 * @param string $uri        The URI of the route.
+	 * @param string $controller The controller to handle the route.
+	 *
+	 * @return void
+	 */
+	private function add(string $method, string $uri, string $controller): void
 	{
 		$this->routes[$method][$uri] = $controller;
 	}
 	
-	public function get($uri, $controller): void
+	/**
+	 * Adds a GET route.
+	 *
+	 * @param string $uri        The URI of the route.
+	 * @param string $controller The controller to handle the route.
+	 *
+	 * @return void
+	 */
+	public function get(string $uri, string $controller): void
 	{
 		$this->add('GET', $uri, $controller);
 	}
 	
-	public function post($uri, $controller): void
+	/**
+	 * Adds a POST route.
+	 *
+	 * @param string $uri        The URI of the route.
+	 * @param string $controller The controller to handle the route.
+	 *
+	 * @return void
+	 */
+	public function post(string $uri, string $controller): void
 	{
 		$this->add('POST', $uri, $controller);
 	}
 	
-	public function put($uri, $controller): void
+	/**
+	 * Adds a PUT route.
+	 *
+	 * @param string $uri        The URI of the route.
+	 * @param string $controller The controller to handle the route.
+	 *
+	 * @return void
+	 */
+	public function put(string $uri, string $controller): void
 	{
 		$this->add('PUT', $uri, $controller);
 	}
 	
-	public function patch($uri, $controller): void
+	/**
+	 * Adds a PATCH route.
+	 *
+	 * @param string $uri        The URI of the route.
+	 * @param string $controller The controller to handle the route.
+	 *
+	 * @return void
+	 */
+	public function patch(string $uri, string $controller): void
 	{
 		$this->add('PATCH', $uri, $controller);
 	}
 	
-	public function delete($uri, $controller): void
+	/**
+	 * Adds a DELETE route.
+	 *
+	 * @param string $uri        The URI of the route.
+	 * @param string $controller The controller to handle the route.
+	 *
+	 * @return void
+	 */
+	public function delete(string $uri, string $controller): void
 	{
 		$this->add('DELETE', $uri, $controller);
 	}
 	
 	/**
-	 * @throws Exception
+	 * Routes the request to the appropriate controller.
+	 *
+	 * @param string $uri    The URI of the request.
+	 * @param string $method The HTTP method of the request.
+	 *
+	 * @return void
+	 * @throws Exception If the route is not found.
 	 */
-	public function route($uri, $method): void
+	#[NoReturn] public function route(string $uri, string $method): void
 	{
 		// Find the route
 		foreach ($this->routes as $route) {
@@ -68,16 +126,42 @@ class Router
 		$this->abort();
 	}
 	
+	/**
+	 * Gets the previous URL.
+	 *
+	 * @return string The previous URL.
+	 */
 	public function previousUrl(): string
 	{
 		return $_SERVER['HTTP_REFERER'] ?? '/';
 	}
 	
-	#[NoReturn] protected function abort($code = 404): void
+	/**
+	 * Aborts the request with a given HTTP status code.
+	 *
+	 * @param int $code The HTTP status code.
+	 *
+	 * @return void
+	 */
+	#[NoReturn] protected function abort(int $code = 404): void
 	{
 		http_response_code($code);
 		
-		require_once BASE_PATH . "view/{$code}.view.php";
+		require_once BASE_PATH . "resources/views/$code.view.php";
 		exit;
+	}
+	
+	/**
+	 * Adds a middleware to the last route.
+	 *
+	 * @param string $key The key of the middleware.
+	 *
+	 * @return Router
+	 */
+	public function only(string $key): Router
+	{
+		$this->routes[array_key_last($this->routes)]['middleware'] = $key;
+		
+		return $this;
 	}
 }

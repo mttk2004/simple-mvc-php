@@ -2,7 +2,6 @@
 
 use Core\Session;
 use Core\ValidationException;
-use Core\Router;
 
 
 // Start session
@@ -14,16 +13,16 @@ const BASE_PATH = __DIR__ . '/../';
 // Autoload
 require_once BASE_PATH . './vendor/autoload.php';
 
-// functions.php is required for the functions used in the project
+// Load helper functions
 require_once BASE_PATH . './utils/helperFunctions.php';
 
-// Start session
+// Bootstrap the application
 require_once BASE_PATH . './bootstrap.php';
 
 // Routes
 require_once BASE_PATH . './routes.php';
 
-// Get the URI and method
+// Get the URI and method of the request
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
@@ -35,10 +34,10 @@ try {
 	Session::flash('errors', $e->errors);
 	Session::flash('old', $e->old);
 	
-	// Redirect back
+	// Redirect back to the previous URL
 	redirect($router->previousUrl());
 } catch (Exception $e) {
-	// Redirect to 404 page
+	// Redirect to 404 page if no route is found
 	abort();
 }
 
