@@ -20,7 +20,7 @@ class Middleware
 			= [
 					'auth' => Auth::class,
 					'guest' => Guest::class,
-					// TODO: Add more middleware here
+				// TODO: Add more middleware here as needed
 			];
 	
 	/**

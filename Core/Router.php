@@ -126,7 +126,7 @@ class Router
 				}
 				
 				// Call the controller
-				require_once BASE_PATH . "./Http/controllers/{$route['controller']}.php";
+				require_once BASE_PATH . "Http/controllers/{$route['controller']}.php";
 				exit;
 			}
 		}

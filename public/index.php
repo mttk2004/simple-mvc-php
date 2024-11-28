@@ -11,16 +11,16 @@ session_start();
 const BASE_PATH = __DIR__ . '/../';
 
 // Autoload
-require_once BASE_PATH . './vendor/autoload.php';
+require_once BASE_PATH . 'vendor/autoload.php';
 
 // Load helper functions
-require_once BASE_PATH . './utils/helperFunctions.php';
+require_once BASE_PATH . 'utils/helperFunctions.php';
 
 // Bootstrap the application
-require_once BASE_PATH . './bootstrap.php';
+require_once BASE_PATH . 'bootstrap.php';
 
 // Routes
-require_once BASE_PATH . './routes.php';
+require_once BASE_PATH . 'routes.php';
 
 // Get the URI and method of the request
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];

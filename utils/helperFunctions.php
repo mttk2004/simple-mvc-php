@@ -1,5 +1,7 @@
 <?php
 
+use Core\App;
+use Core\Database;
 use Core\ResponseCode;
 use Core\Session;
 use JetBrains\PhpStorm\NoReturn;
@@ -107,4 +109,19 @@ function view(string $view, array $data): void
 function old(string $key, null|string $default = ''): mixed
 {
 	return Session::getFlash('old')[$key] ?? $default;
+}
+
+/**
+ * Resolves and returns the Database instance from the App container.
+ * If an exception occurs, aborts with an internal server error status code.
+ *
+ * @return Database The resolved Database instance.
+ */
+function resolveDatabase(): Database
+{
+	try {
+		return App::resolve(Database::class);
+	} catch (Exception) {
+		abort(ResponseCode::INTERNAL_SERVER_ERROR);
+	}
 }

@@ -33,6 +33,7 @@ class Database
 	 */
 	public function __construct(
 			array $config,
+			// TODO: Change the default username and password.
 			string $username = 'kiet',
 			string $password = 'password',
 	) {
