@@ -125,3 +125,15 @@ application to suit your needs.
 - [Mai Trần Tuấn Kiệt](https://github.com/mttk2004)
 
 #### Last updated: November 28, 2024
+
+## Database Migrations and Seeding
+
+This application uses Phinx for database migrations and seeding. Follow the steps below to manage your database schema and seed data.
+
+### Prerequisites
+
+Ensure you have installed all dependencies using Composer:
+
+```bash
+composer install
+```
