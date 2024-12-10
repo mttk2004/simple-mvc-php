@@ -1,7 +1,7 @@
 # PHP Application
 
-This is a PHP application that uses a custom routing mechanism, session management, and middleware.
-Below is an explanation of how the application works, starting from the `index.php` file.
+_This is a PHP application that uses a custom routing mechanism, session management, and middleware.
+Below is an explanation of how the application works, starting from the `index.php` file._
 
 ### `public/index.php`
 
@@ -115,25 +115,13 @@ functions as needed.
 
 ## Conclusion
 
-This README provides an overview of the application's structure and functionality. Each
+_This README provides an overview of the application's structure and functionality. Each
 component plays a crucial role in handling requests, managing sessions, and routing within the
 application. By understanding how these components work together, you can extend and customize the
-application to suit your needs.
+application to suit your needs._
 
 ## Author
 
 - [Mai Trần Tuấn Kiệt](https://github.com/mttk2004)
 
 #### Last updated: November 28, 2024
-
-## Database Migrations and Seeding
-
-This application uses Phinx for database migrations and seeding. Follow the steps below to manage your database schema and seed data.
-
-### Prerequisites
-
-Ensure you have installed all dependencies using Composer:
-
-```bash
-composer install
-```
