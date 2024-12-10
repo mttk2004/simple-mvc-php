@@ -2,8 +2,7 @@
 
 use Core\Router;
 
-
-$router = new Router;
+$router = new Router();
 
 // TODO: Add routes here as needed
 $router->get('/', 'home');

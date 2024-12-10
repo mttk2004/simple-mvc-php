@@ -6,7 +6,6 @@ use Core\ResponseCode;
 use Core\Session;
 use JetBrains\PhpStorm\NoReturn;
 
-
 /**
  * Dumps the variable and ends the script.
  *
@@ -16,10 +15,10 @@ use JetBrains\PhpStorm\NoReturn;
  */
 #[NoReturn] function dd(mixed $var): void
 {
-	echo '<pre>';
-	var_dump($var);
-	echo '</pre>';
-	die();
+    echo '<pre>';
+    var_dump($var);
+    echo '</pre>';
+    die();
 }
 
 /**
@@ -31,9 +30,9 @@ use JetBrains\PhpStorm\NoReturn;
  */
 function urlIs(string $url): bool
 {
-	$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-	
-	return $uri === $url;
+    $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+
+    return $uri === $url;
 }
 
 /**
@@ -46,9 +45,9 @@ function urlIs(string $url): bool
  */
 function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): void
 {
-	if (!$condition) {
-		abort($statusCode);
-	}
+    if (!$condition) {
+        abort($statusCode);
+    }
 }
 
 /**
@@ -60,9 +59,9 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
  */
 #[NoReturn] function abort(int $statusCode = 404): void
 {
-	http_response_code($statusCode);
-	require_once(BASE_PATH . 'resources/views/' . $statusCode . '.view.php');
-	exit();
+    http_response_code($statusCode);
+    require_once(BASE_PATH . 'resources/views/' . $statusCode . '.view.php');
+    exit();
 }
 
 /**
@@ -75,14 +74,14 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
  */
 function view(string $view, array $data): void
 {
-	extract($data);
-	
-	$viewPath = BASE_PATH . 'resources/views/' . $view . '.view.php';
-	if (!file_exists($viewPath)) {
-		abort();
-	}
-	
-	require($viewPath);
+    extract($data);
+
+    $viewPath = BASE_PATH . 'resources/views/' . $view . '.view.php';
+    if (!file_exists($viewPath)) {
+        abort();
+    }
+
+    require($viewPath);
 }
 
 /**
@@ -94,8 +93,8 @@ function view(string $view, array $data): void
  */
 #[NoReturn] function redirect(string $url): void
 {
-	header('Location: ' . $url);
-	die();
+    header('Location: ' . $url);
+    die();
 }
 
 /**
@@ -108,7 +107,7 @@ function view(string $view, array $data): void
  */
 function old(string $key, null|string $default = ''): mixed
 {
-	return Session::getFlash('old')[$key] ?? $default;
+    return Session::getFlash('old')[$key] ?? $default;
 }
 
 /**
@@ -119,9 +118,9 @@ function old(string $key, null|string $default = ''): mixed
  */
 function resolveDatabase(): Database
 {
-	try {
-		return App::resolve(Database::class);
-	} catch (Exception) {
-		abort(ResponseCode::INTERNAL_SERVER_ERROR);
-	}
+    try {
+        return App::resolve(Database::class);
+    } catch (Exception) {
+        abort(ResponseCode::INTERNAL_SERVER_ERROR);
+    }
 }

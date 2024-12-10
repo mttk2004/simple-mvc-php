@@ -3,7 +3,6 @@
 use Core\Session;
 use Core\ValidationException;
 
-
 // Start session
 session_start();
 
@@ -28,17 +27,17 @@ $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
 // Route the request
 try {
-	$router->route($uri, $method);
+    $router->route($uri, $method);
 } catch (ValidationException $e) {
-	// Set the session for error
-	Session::flash('errors', $e->errors);
-	Session::flash('old', $e->old);
-	
-	// Redirect back to the previous URL
-	redirect($router->previousUrl());
+    // Set the session for error
+    Session::flash('errors', $e->errors);
+    Session::flash('old', $e->old);
+
+    // Redirect back to the previous URL
+    redirect($router->previousUrl());
 } catch (Exception $e) {
-	// Redirect to 404 page if no route is found
-	abort();
+    // Redirect to 404 page if no route is found
+    abort();
 }
 
 // End flash session

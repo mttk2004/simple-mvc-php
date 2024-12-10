@@ -21,4 +21,4 @@ class UserSeeder extends AbstractSeed
 
         $this->table('users')->insert($data)->saveData();
     }
-} 
+}
