@@ -11,7 +11,7 @@ return [
         'development' => [
             'adapter' => 'mysql',
             'host' => 'localhost',
-            'name' => 'testdb',
+            'name' => 'simple_database',
             'user' => 'kiet',
             'pass' => 'password',
             'port' => '3306',

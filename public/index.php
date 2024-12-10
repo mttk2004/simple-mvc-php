@@ -36,9 +36,9 @@ try {
     // Redirect back to the previous URL
     redirect($router->previousUrl());
 } catch (Exception $e) {
+    // End flash session
+    Session::unFlash();
+
     // Redirect to 404 page if no route is found
     abort();
 }
-
-// End flash session
-Session::unFlash();

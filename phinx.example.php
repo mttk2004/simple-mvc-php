@@ -19,7 +19,7 @@ return [
                 'development' => [
                         'adapter' => 'mysql', // Database adapter
                         'host' => 'localhost', // Database host
-                        'name' => 'database-name', // Database name
+                        'name' => 'database_name', // Database name
                         'user' => 'user', // Database user
                         'pass' => 'password', // Database password
                         'port' => '3306', // Database port

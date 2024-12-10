@@ -1,6 +1,14 @@
 <?php
 
+use Models\User;
+
 $db = resolveDatabase();
 
-$users = $db->query('SELECT * FROM user')->findAll();
-dd($users);
+$userData = $db->query('SELECT * FROM users')->findAll();
+$users = [];
+
+foreach ($userData as $data) {
+    $users[] = new User($data['id'], $data['name'], $data['email'], $data['password']);
+}
+
+view('users/index', compact('users'));
