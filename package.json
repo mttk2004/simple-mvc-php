@@ -1,0 +1,20 @@
+{
+  "name": "simple-mvc-php",
+  "version": "1.0.0",
+  "description": "Simple MVC framework for simple PHP projects, made by Kiet.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "npm run build:css",
+    "build:css": "tailwindcss -i ./resources/css/main.css -o ./public/style.css --watch"
+  },
+  "author": "Mai Tran Tuan Kiet",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16"
+  }
+}
