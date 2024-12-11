@@ -3,6 +3,7 @@
 /vendor/
 /node_modules/
 /public/storage
+/cache/
 
 composer.lock
 package-lock.json
