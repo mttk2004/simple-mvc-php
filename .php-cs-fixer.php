@@ -6,7 +6,7 @@
  */
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
-    ->exclude('vendor');
+    ->exclude('vendor')->exclude('node_modules')->exclude('cache');
 
 return (new PhpCsFixer\Config())
     ->setRules([

@@ -60,7 +60,7 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
 #[NoReturn] function abort(int $statusCode = 404): void
 {
     http_response_code($statusCode);
-    require_once(BASE_PATH . 'resources/views/' . $statusCode . '.view.php');
+    require_once(BASE_PATH . 'resources/views/' . $statusCode . '.html.twig');
     exit();
 }
 
@@ -74,14 +74,18 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
  */
 function view(string $view, array $data): void
 {
-    extract($data);
+    $twig = require_once BASE_PATH . 'config/twig.php';
 
-    $viewPath = BASE_PATH . 'resources/views/' . $view . '.view.php';
-    if (!file_exists($viewPath)) {
-        abort();
-    }
+    echo $twig->render($view . '.html.twig', $data);
 
-    require($viewPath);
+    // extract($data);
+
+    // $viewPath = BASE_PATH . 'resources/views/' . $view . '.view.php';
+    // if (!file_exists($viewPath)) {
+    //     abort();
+    // }
+
+    // require($viewPath);
 }
 
 /**

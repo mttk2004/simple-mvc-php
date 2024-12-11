@@ -154,7 +154,7 @@ class Router
     {
         http_response_code($code);
 
-        require_once BASE_PATH . "resources/views/$code.view.php";
+        require_once BASE_PATH . "resources/views/$code.html.twig";
         exit;
     }
 
