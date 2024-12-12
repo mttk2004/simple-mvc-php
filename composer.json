@@ -17,6 +17,7 @@
     "ext-pdo": "*",
     "robmorgan/phinx": "^0.16.5",
     "twig/twig": "^3.0",
+    "league/event": "^3.0",
     "respect/validation": "^2.3"
   },
   "require-dev": {
