@@ -11,4 +11,4 @@ foreach ($userData as $data) {
     $users[] = new User($data['id'], $data['name'], $data['email'], $data['password']);
 }
 
-view('users/index', compact('users'));
+view('users/index', ['users' => $users]);

@@ -1,3 +1,3 @@
 <?php
 
-view('about', []);
+view('about', ['name' => 'John Doe']);

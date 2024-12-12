@@ -13,7 +13,7 @@ $container = new Container();
  * Bind the Database class to the container with a closure that returns a new Database instance.
  */
 $container->bind('Core\Database', function () {
-    $config = require_once(__DIR__ . '/Core/config.php');
+    $config = require_once(BASE_PATH . 'config/database.php');
 
     return new Database($config);
 });
