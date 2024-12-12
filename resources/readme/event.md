@@ -207,5 +207,3 @@ Listener 1: User created: John Doe
 3. Tạo và đăng ký Listener.
 4. Sử dụng Closure hoặc Subscriber để xử lý sự kiện.
 5. Sử dụng Event Priority để kiểm soát thứ tự thực thi.
-
-Hy vọng hướng dẫn này giúp bạn hiểu rõ hơn về cách sử dụng `league/event` trong dự án PHP thuần của mình! 😊
