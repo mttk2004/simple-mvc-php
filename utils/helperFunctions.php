@@ -75,17 +75,7 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
 function view(string $view, array $data): void
 {
     $twig = require_once BASE_PATH . 'config/twig.php';
-
     echo $twig->render($view . '.html.twig', $data);
-
-    // extract($data);
-
-    // $viewPath = BASE_PATH . 'resources/views/' . $view . '.view.php';
-    // if (!file_exists($viewPath)) {
-    //     abort();
-    // }
-
-    // require($viewPath);
 }
 
 /**
