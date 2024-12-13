@@ -9,7 +9,7 @@
   <script src="/jquery.min.js"></script>
 </head>
 <body class="h-full">
-  {% include 'components/header.html.twig' %}
+  {% include 'components/header.html.twig' with {'user': user} %}
 	<main>
 		{% block content %}{% endblock %}
 	</main>
