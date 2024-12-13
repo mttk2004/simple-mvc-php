@@ -3,8 +3,7 @@
 use Models\User;
 
 $db = resolveDatabase();
-
-$userData = $db->query('SELECT * FROM users')->findAll();
+$userData = $db->select('users', '*');
 $users = [];
 
 foreach ($userData as $data) {

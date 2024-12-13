@@ -1,9 +1,8 @@
 <?php
 
-use Core\App;
-use Core\Database;
 use Core\ResponseCode;
 use Core\Session;
+use Medoo\Medoo;
 use JetBrains\PhpStorm\NoReturn;
 
 /**
@@ -105,16 +104,12 @@ function old(string $key, null|string $default = ''): mixed
 }
 
 /**
- * Resolves and returns the Database instance from the App container.
- * If an exception occurs, aborts with an internal server error status code.
+ * Resolves the database connection.
  *
- * @return Database The resolved Database instance.
+ * @return Medoo The database connection.
  */
-function resolveDatabase(): Database
+function resolveDatabase(): Medoo
 {
-    try {
-        return App::resolve(Database::class);
-    } catch (Exception) {
-        abort(ResponseCode::INTERNAL_SERVER_ERROR);
-    }
+    $config = require_once BASE_PATH . 'config/medoo.php';
+    return new Medoo($config);
 }

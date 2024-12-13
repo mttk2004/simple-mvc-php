@@ -35,9 +35,7 @@ if (!$emailValidator->validate($email) || !$passwordValidator->validate($passwor
 
 // check if the user exists
 $db = resolveDatabase();
-$user = $db->query('SELECT * FROM users WHERE email = :email', [
-    'email' => $email
-])->find();
+$user = $db->get('users', '*', ['email' => $email]);
 
 if (!$user) {
     Session::flash('errors', [
