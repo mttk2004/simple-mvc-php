@@ -2,9 +2,7 @@
 .vscode
 /vendor/
 /node_modules/
-/public/storage
-/cache/
-
+/storage/*
 composer.lock
 package-lock.json
 yarn.lock

@@ -111,7 +111,7 @@ class Router
      * @param string $method The HTTP method of the request.
      *
      * @return void
-     * @throws Exception If the route is not found.
+     * @throws Exception if middleware cannot resolved.
      */
     #[NoReturn] public function route(string $uri, string $method): void
     {
@@ -153,8 +153,7 @@ class Router
     #[NoReturn] protected function abort(int $code = 404): void
     {
         http_response_code($code);
-
-        require_once BASE_PATH . "resources/views/$code.html.twig";
+        require_once(BASE_PATH . 'resources/views/errors/' . $code . '.html.twig');
         exit;
     }
 

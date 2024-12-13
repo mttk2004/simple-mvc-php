@@ -39,7 +39,7 @@ class Middleware
         if ($middleware) {
             (new $middleware())->handle();
         } else {
-            throw new Exception("Middleware {$key} not found");
+            throw new Exception("Middleware $key not found");
         }
     }
 }

@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block title %}Default Title{% endblock %}</title>
 
-  <link rel="stylesheet" href="/style.css">
-  <script src="/jquery.min.js"></script>
+  <link rel="stylesheet" href="/styles/app.css">
+  <script src="/scripts/jquery.min.js"></script>
 </head>
 <body class="h-full">
   {% include 'components/header.html.twig' with {'user': user} %}
@@ -14,6 +14,6 @@
 		{% block content %}{% endblock %}
 	</main>
 	{% include 'components/footer.html.twig' %}
-  <script src="/bootstrap.js"></script>
+  <script src="/scripts/bootstrap.js"></script>
 </body>
 </html>

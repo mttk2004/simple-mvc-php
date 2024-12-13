@@ -60,7 +60,7 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
 #[NoReturn] function abort(int $statusCode = 404): void
 {
     http_response_code($statusCode);
-    require_once(BASE_PATH . 'resources/views/' . $statusCode . '.html.twig');
+    require_once(BASE_PATH . 'resources/views/errors/' . $statusCode . '.html.twig');
     exit();
 }
 

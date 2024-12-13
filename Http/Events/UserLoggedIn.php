@@ -2,9 +2,7 @@
 
 namespace Events;
 
-use League\Event\AbstractEvent;
-
-class UserLoggedIn extends AbstractEvent
+class UserLoggedIn
 {
     private string $userId;
 
@@ -17,4 +15,4 @@ class UserLoggedIn extends AbstractEvent
     {
         return $this->userId;
     }
-}
+} 

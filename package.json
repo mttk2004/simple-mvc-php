@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "npm run build:css",
-    "build:css": "tailwindcss -i ./resources/css/main.css -o ./public/style.css --watch"
+    "build:css": "tailwindcss -i ./resources/css/main.css -o public/styles/app.css --watch"
   },
   "author": "Mai Tran Tuan Kiet",
   "license": "ISC",

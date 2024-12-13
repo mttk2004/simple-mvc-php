@@ -7,6 +7,6 @@ use Monolog\Handler\StreamHandler;
 $logger = new Logger('user_logger');
 
 // Thêm handler để ghi log vào file
-$logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::INFO));
+$logger->pushHandler(new StreamHandler(BASE_PATH . 'storage/logs/app.log', Logger::INFO));
 
 return $logger;

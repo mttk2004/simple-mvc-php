@@ -2,6 +2,19 @@
 
 use Core\Session;
 use Respect\Validation\Validator as v;
+use League\Event\EventDispatcher;
+use Events\UserLoggedIn;
+use Listeners\UserLoggedInListener;
+
+/**
+ * 1. get the data from the form
+ * 2. validate the data
+ * 3. check if the user exists
+ * 4. check if the password is correct
+ * 5. login the user
+ * 6. emit the UserLoggedIn event
+ * 7. redirect to the home page
+ */
 
 // get the data from the form
 $email = $_POST['email'];
@@ -16,7 +29,7 @@ if (!$emailValidator->validate($email) || !$passwordValidator->validate($passwor
         'email' => 'Email is invalid',
         'password' => 'Password is invalid'
     ]);
-    return redirect('/login');
+    redirect('/login');
 }
 
 // check if the user exists
@@ -29,7 +42,7 @@ if (!$user) {
     Session::flash('errors', [
         'email' => 'User not found'
     ]);
-    return redirect('/login');
+    redirect('/login');
 }
 
 // check if the password is correct
@@ -37,9 +50,22 @@ if (!password_verify($password, $user['password'])) {
     Session::flash('errors', [
         'password' => 'Password is incorrect'
     ]);
-    return redirect('/login');
+    redirect('/login');
 }
 
 // login the user
 Session::set('user', $user);
-return redirect('/');
+
+// Khởi tạo EventDispatcher
+$dispatcher = new EventDispatcher();
+
+// Khởi tạo Logger
+$logger = require BASE_PATH . 'config/logger.php';
+
+// Đăng ký Listener với Logger
+$dispatcher->subscribeTo(UserLoggedIn::class, new UserLoggedInListener($logger));
+
+// Kích hoạt sự kiện sau khi người dùng đăng nhập thành công
+$dispatcher->dispatch(new UserLoggedIn($user['id']));
+
+redirect('/');

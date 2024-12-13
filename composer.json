@@ -4,7 +4,9 @@
   "autoload": {
     "psr-4": {
       "Core\\": "Core/",
-      "Models\\": "Http/Models/"
+      "Models\\": "Http/Models/",
+      "Events\\": "Http/Events/",
+      "Listeners\\": "Http/Listeners/"
     }
   },
   "authors": [
@@ -18,7 +20,8 @@
     "robmorgan/phinx": "^0.16.5",
     "twig/twig": "^3.0",
     "league/event": "^3.0",
-    "respect/validation": "^2.3"
+    "respect/validation": "^2.3",
+    "monolog/monolog": "^3.8"
   },
   "require-dev": {
     "phpunit/phpunit": "^10.0",

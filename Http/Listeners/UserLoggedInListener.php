@@ -15,9 +15,12 @@ class UserLoggedInListener implements Listener
         $this->logger = $logger;
     }
 
-    public function __invoke(UserLoggedIn $event): void
+    public function __invoke(object $event): void
     {
-        // Ghi log khi người dùng đăng nhập
-        $this->logger->info("User {$event->getUserId()} logged in.");
+        // Kiểm tra kiểu của sự kiện
+        if ($event instanceof UserLoggedIn) {
+            // Ghi log khi người dùng đăng nhập
+            $this->logger->info("User {$event->getUserId()} logged in.");
+        }
     }
-}
+} 
