@@ -46,4 +46,29 @@ $(function () {
         });
     }
   });
+
+  // Menu di động đóng ngay từ đầu
+  $('#mobile-menu').removeClass('block').addClass('hidden');
+  $('#mobile-menu-backdrop').removeClass('block').addClass('hidden');
+  // Menu di động đóng khi click ra ngoài
+  $(document).on('click', function (e) {
+    if (!$(e.target).closest('.lg\\:hidden').length) {
+      $('#mobile-menu').removeClass('block').addClass('hidden');
+      $('#mobile-menu-backdrop').removeClass('block').addClass('hidden');
+    }
+  });
+
+  // Xử lý click cho nút đóng menu di động
+  $('#close-menu').on('click', function () {
+    console.log('close-menu');
+    $('#mobile-menu').removeClass('block').addClass('hidden');
+    $('#mobile-menu-backdrop').removeClass('block').addClass('hidden');
+  });
+
+  // Xử lý click cho nút mở menu di động
+  $('#open-menu').on('click', function () {
+    console.log('open-menu');
+    $('#mobile-menu').removeClass('hidden').addClass('block');
+    $('#mobile-menu-backdrop').removeClass('hidden').addClass('block');
+  });
 });
