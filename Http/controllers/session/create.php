@@ -2,9 +2,9 @@
 
 use Core\Session;
 
-// check if there are any errors in the flash session
 $errors = Session::getFlash('errors');
+$old = Session::getFlash('old');
 
-view('login', [
-    'errors' => $errors
-]);
+view('login', ['errors' => $errors, 'old' => $old]);
+
+Session::unFlash();

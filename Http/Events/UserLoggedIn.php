@@ -15,4 +15,4 @@ class UserLoggedIn
     {
         return $this->userId;
     }
-} 
+}

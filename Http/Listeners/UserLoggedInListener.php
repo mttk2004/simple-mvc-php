@@ -23,4 +23,4 @@ class UserLoggedInListener implements Listener
             $this->logger->info("User {$event->getUserId()} logged in.");
         }
     }
-} 
+}

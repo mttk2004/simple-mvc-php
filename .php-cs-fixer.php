@@ -21,6 +21,5 @@ return (new PhpCsFixer\Config())
             'no_unused_imports' => true,
             'no_useless_else' => true,
             'no_useless_return' => true,
-            'indentation_type' => true,
     ])
     ->setFinder($finder);

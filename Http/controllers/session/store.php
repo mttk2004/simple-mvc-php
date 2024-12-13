@@ -29,6 +29,7 @@ if (!$emailValidator->validate($email) || !$passwordValidator->validate($passwor
         'email' => 'Email is invalid',
         'password' => 'Password is invalid'
     ]);
+    Session::flash('old', ['email' => $email]);
     redirect('/login');
 }
 
@@ -42,6 +43,7 @@ if (!$user) {
     Session::flash('errors', [
         'email' => 'User not found'
     ]);
+    Session::flash('old', ['email' => $email]);
     redirect('/login');
 }
 
@@ -50,6 +52,7 @@ if (!password_verify($password, $user['password'])) {
     Session::flash('errors', [
         'password' => 'Password is incorrect'
     ]);
+    Session::flash('old', ['email' => $email]);
     redirect('/login');
 }
 
