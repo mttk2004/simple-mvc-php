@@ -14,7 +14,12 @@ class SessionController
 {
     public function create(): void
     {
-        view('login', []);
+        $errors = Session::getFlash('errors');
+        $old = Session::getFlash('old');
+
+        view('login', ['errors' => $errors, 'old' => $old]);
+
+        Session::unFlash();
     }
 
     #[NoReturn] public function store(): void
@@ -27,33 +32,24 @@ class SessionController
         $emailValidator = v::email();
         $passwordValidator = v::stringType()->length(8, 32);
 
-        if (!$emailValidator->validate($email) || !$passwordValidator->validate($password)) {
-            Session::flash('errors', [
-                    'email' => 'Email is invalid',
-                    'password' => 'Password is invalid'
-            ]);
-            Session::flash('old', ['email' => $email]);
-            redirect('/login');
+        if (!$emailValidator->validate($email)) {
+            flashAndRedirect(['email' => 'Email is invalid'], ['email' => $email], '/login');
+        }
+
+        if (!$passwordValidator->validate($password)) {
+            flashAndRedirect(['password' => 'Password must be between 8 and 32 characters'], ['email' => $email], '/login');
         }
 
         // 3. check if the user exists
         $user = User::findByEmail($email);
 
         if (!$user) {
-            Session::flash('errors', [
-                    'email' => 'User not found'
-            ]);
-            Session::flash('old', ['email' => $email]);
-            redirect('/login');
+            flashAndRedirect(['email' => 'User not found'], ['email' => $email], '/login');
         }
 
         // 4. check if the password is correct
         if (!password_verify($password, $user->getPassword())) {
-            Session::flash('errors', [
-                    'password' => 'Password is incorrect'
-            ]);
-            Session::flash('old', ['email' => $email]);
-            redirect('/login');
+            flashAndRedirect(['password' => 'Password is incorrect'], ['email' => $email], '/login');
         }
 
         // 5. login the user
