@@ -1,6 +1,6 @@
 <?php
 
-namespace Events;
+namespace Http\Events;
 
 class UserLoggedIn
 {

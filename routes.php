@@ -1,13 +1,21 @@
 <?php
 
-use Core\Router;
+use FastRoute\RouteCollector;
 
-$router = new Router();
+return function (RouteCollector $r) {
+    $COMMON_CONTROLLER = 'Http\Controllers\CommonController';
+    $SESSION_CONTROLLER = 'Http\Controllers\SessionController';
+    $USER_CONTROLLER = 'Http\Controllers\UserController';
 
-// TODO: Add routes here as needed
-$router->get('/', 'home');
-$router->get('/about', 'about')->only('guest');
-$router->get('/users', 'user/index');
-$router->get('/login', 'session/create')->only('guest');
-$router->post('/login', 'session/store')->only('guest');
-$router->post('/logout', 'session/destroy')->only('auth');
+    // Common routes
+    $r->addRoute('GET', '/', [$COMMON_CONTROLLER, 'home']);
+    $r->addRoute('GET', '/about', [$COMMON_CONTROLLER, 'about']);
+
+    // Session routes
+    $r->addRoute('GET', '/login', [$SESSION_CONTROLLER, 'create']);
+    $r->addRoute('POST', '/login', [$SESSION_CONTROLLER, 'store']);
+    $r->addRoute('DELETE', '/logout', [$SESSION_CONTROLLER, 'destroy']);
+
+    // User routes
+    $r->addRoute('GET', '/users', [$USER_CONTROLLER, 'index']);
+};
