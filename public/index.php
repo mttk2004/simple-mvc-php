@@ -1,5 +1,6 @@
 <?php
 
+use Core\Session;
 use FastRoute\Dispatcher;
 
 use function FastRoute\simpleDispatcher;
@@ -21,7 +22,7 @@ $dispatcher = simpleDispatcher(require BASE_PATH . 'routes.php');
 
 // Get the URI and method of the request
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
 // Dispatch the request
 $routeInfo = $dispatcher->dispatch($method, $uri);
@@ -40,3 +41,6 @@ switch ($routeInfo[0]) {
         call_user_func([new $controller(), $action]);
         break;
 }
+
+// End session
+Session::destroy();

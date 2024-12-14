@@ -157,6 +157,7 @@
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
       {% if user %}
         <form action="/logout" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="text-sm font-semibold leading-6 text-gray-900">Log out</button>
         </form>
       {% else %}
