@@ -21,16 +21,13 @@ require_once BASE_PATH . 'routes.php';
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-// Debugging: Print the URI and method
-error_log("URI: $uri, Method: $method");
-
-// Route the request
 try {
+    // Route the request
     $router->route($uri, $method);
 } catch (Exception $e) {
     // Display the error
     view('errors/500', ['error' => $e->getMessage()]);
-
+} finally {
     // End flash session
     Session::unFlash();
 }

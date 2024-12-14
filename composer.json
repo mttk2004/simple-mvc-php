@@ -1,12 +1,10 @@
 {
   "name": "kiet/simple-mvc-php",
-  "description": "Simple MVC framework for simple PHP projects, made by Kiet.",
+  "description": "A simple MVC framework for simple web applications.",
   "autoload": {
     "psr-4": {
       "Core\\": "Core/",
-      "Models\\": "Http/Models/",
-      "Events\\": "Http/Events/",
-      "Listeners\\": "Http/Listeners/"
+      "Http\\": "Http/"
     }
   },
   "authors": [

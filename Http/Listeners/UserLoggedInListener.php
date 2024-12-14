@@ -1,9 +1,9 @@
 <?php
 
-namespace Listeners;
+namespace Http\Listeners;
 
 use League\Event\Listener;
-use Events\UserLoggedIn;
+use Http\Events\UserLoggedIn;
 use Monolog\Logger;
 
 class UserLoggedInListener implements Listener

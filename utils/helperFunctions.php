@@ -4,6 +4,8 @@ use Core\ResponseCode;
 use Core\Session;
 use Medoo\Medoo;
 use JetBrains\PhpStorm\NoReturn;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 /**
  * Dumps the variable and ends the script.
@@ -73,6 +75,7 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
  */
 function view(string $view, array $data): void
 {
+    $data['user'] = Session::get('user');
     $twig = require_once BASE_PATH . 'config/twig.php';
     echo $twig->render($view . '.html.twig', $data);
 }
@@ -112,4 +115,38 @@ function resolveDatabase(): Medoo
 {
     $config = require_once BASE_PATH . 'config/medoo.php';
     return new Medoo($config);
+}
+
+/**
+ * Resolves the logger with the given name.
+ *
+ * @param string $name The name of the logger.
+ *
+ * @return Logger The logger.
+ */
+function resolveLogger(string $name): Logger
+{
+    // Tạo logger
+    $logger = new Logger($name);
+
+    // Thêm handler để ghi log vào file
+    $logger->pushHandler(new StreamHandler(BASE_PATH . 'storage/logs/app.log'));
+
+    return $logger;
+}
+
+/**
+ * Flashes errors and old data to the session and redirects to the given URL.
+ *
+ * @param array  $errors The errors to flash.
+ * @param array  $old    The old data to flash.
+ * @param string $url    The URL to redirect to.
+ *
+ * @return void
+ */
+#[NoReturn] function flashAndRedirect(array $errors, array $old, string $url): void
+{
+    Session::flash('errors', $errors);
+    Session::flash('old', $old);
+    redirect($url);
 }

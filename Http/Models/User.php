@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace Http\Models;
 
 class User
 {
@@ -123,5 +123,20 @@ class User
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    /**
+     * Finds a user by their email.
+     *
+     * @param string $email The email of the user.
+     *
+     * @return User|null The user with the given email, or null if no user exists.
+     */
+    public static function findByEmail(string $email): ?User
+    {
+        $db = resolveDatabase();
+        $user = $db->get('users', '*', ['email' => $email]);
+
+        return $user ? new User($user['id'], $user['name'], $user['email'], $user['password']) : null;
     }
 }
