@@ -113,3 +113,19 @@ function resolveDatabase(): Medoo
     $config = require_once BASE_PATH . 'config/medoo.php';
     return new Medoo($config);
 }
+
+/**
+ * Flash session data and redirect to a given URL.
+ *
+ * @param array  $errors The errors to flash.
+ * @param array  $old    The old input data to flash.
+ * @param string $url    The URL to redirect to.
+ *
+ * @return void
+ */
+#[NoReturn] function flashAndRedirect(array $errors, array $old, string $url): void
+{
+    Session::flash('errors', $errors);
+    Session::flash('old', $old);
+    redirect($url);
+}
