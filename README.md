@@ -1,127 +1,105 @@
-# PHP Application
+## Simple MVC PHP Framework
+A simple MVC framework designed for simple PHP projects.
 
-_This is a PHP application that uses a custom routing mechanism, session management, and middleware.
-Below is an explanation of how the application works, starting from the `index.php` file._
+### Introduction
+This repository, `simple-mvc-php`, is a Simple MVC framework designed for simple PHP projects, created by Mai Trần Tuấn Kiệt. It consists of various components and uses multiple languages such as Twig, CSS, PHP, and JavaScript.
 
-### `public/index.php`
+### Getting Started
+#### Prerequisites
+- Ensure all dependencies are installed using Composer:
+  ```bash
+  composer install
+  ```
 
-The `index.php` file is the entry point of the application. It performs the following tasks:
-
-1. **Start Session**: Initializes the session using `session_start()`.
-2. **Define Base Path**: Sets the base path of the project.
-3. **Autoload Dependencies**: Includes the Composer autoload file to load dependencies.
-4. **Load Helper Functions**: Includes a file with helper functions.
-5. **Bootstrap the Application**: Includes the `bootstrap.php` file to set up the application.
-6. **Load Routes**: Includes the `routes.php` file to define the application routes.
-7. **Route the Request**: Gets the URI and method of the request and routes it using the `$router`
-   object.
-8. **Handle Exceptions**: Catches `ValidationException` and other exceptions to handle errors and
-   redirect appropriately.
-9. **End Flash Session**: Ends the flash session.
-
-## Components
-
-### `bootstrap.php`
-
-The `bootstrap.php` file sets up the application by creating a new `Container` instance and binding
-the `Database` class to it. It then sets the container instance in the `App` class.
-
-### `routes.php`
-
-The `routes.php` file defines the application routes using the `Router` class. It maps URIs to
-controllers and can also specify middleware for routes. You can define routes for different HTTP
-methods using the `get`, `post`, `put`, `patch`, and `delete` methods.
-
-### `Core/Router.php`
-
-The `Router` class provides a mechanism to resolve and handle routes based on a given URI and
-method. It includes methods to add routes (`get`, `post`, `put`, `patch`, `delete`) and a `route`
-method to route the request to the appropriate controller. It also includes methods to get the
-previous URL and abort the request with a given HTTP status code.
-
-### `Core/Session.php`
-
-The `Session` class provides methods to manage PHP sessions, including starting and destroying
-sessions, checking if a session key exists, setting and getting session keys, and managing flash
-messages.
-
-### `Core/ValidationException.php`
-
-The `ValidationException` class represents a validation exception that contains errors and old input
-data. It includes a static method `throwError` to throw a `ValidationException` with the given
-errors and old input data.
-
-### `Core/Middleware/Middleware.php`
-
-The `Middleware` class is an abstract class that defines a `handle` method to be implemented by
-middleware classes. It provides a mechanism to execute middleware before and after the request is
-routed.
-
-### `Core/Middleware/Auth.php`
-
-The `Auth` middleware class checks if a user is authorized by verifying if a session key `user`
-exists. If the user is not authorized, it responds with a `FORBIDDEN` status code.
-
-### `Core/Middleware/Guest.php`
-
-The `Guest` middleware class checks if a user is a guest by verifying if a session key `user` does
-not exist. If the user is not a guest, it redirects to the home page.
-
-### `Core/config.php`
-
-The `config.php` file contains configuration settings for the application, such as database
-connection details. Change these settings to match your environment.
-
-### `Core/Database.php`
-
-The `Database` class handles database connections and queries. It is bound to the container in
-`bootstrap.php`. You can use this class to perform CRUD operations on the database.
-
-### `Core/App.php`
-
-The `App` class manages the application container. It provides methods to set and get the container
-instance.
-
-### `Http/controllers`
-
-The `Http/controllers` directory contains controllers that handle requests and return responses.
-You can create new controllers in this directory and define methods to handle different routes.
-
-### `Http/Models`
-
-The `Http/Models` directory contains model classes that interact with the database. You can
-create new model classes in this directory to represent database tables and perform CRUD operations.
-
-### `resources/views`
-
-The `resources/views` directory contains view files that are rendered by controllers. You can create
-new view files in this directory to display content to users.
-
-### `resources/js`
-
-The `resources/js` directory contains JavaScript files that can be included in views.
-
-### `utils/helperFunctions.php`
-
-This file contains helper functions used throughout the application. You can add more helper
-functions as needed.
-
-## How to Run the Application
-
+#### Installation
 1. **Install Dependencies**: Run `composer install` to install the required dependencies.
 2. **Set Up Configuration**: Configure the application settings in `Core/config.php`.
-3. **Start the Server**: Use a PHP server to run the application,
-   e.g., `php -S localhost:8000 -t public`.
+3. **Start the Server**: Use a PHP server to run the application, e.g., `php -S localhost:8000 -t public`.
 
-## Conclusion
+#### Database Migrations and Seeding
+- This application uses Phinx for database migrations and seeding. Ensure your database configuration is set correctly in the `phinx.php` file.
+- **Create a Migration**:
+  ```bash
+  vendor/bin/phinx create MigrationName
+  ```
+- **Run Migrations**:
+  ```bash
+  vendor/bin/phinx migrate
+  ```
+- **Create a Seeder**:
+  ```bash
+  vendor/bin/phinx seed:create SeederName
+  ```
+- **Run Seeders**:
+  ```bash
+  vendor/bin/phinx seed:run
+  ```
 
-_This README provides an overview of the application's structure and functionality. Each
-component plays a crucial role in handling requests, managing sessions, and routing within the
-application. By understanding how these components work together, you can extend and customize the
-application to suit your needs._
+### Components
+#### `public/index.php`
+The entry point of the application that initializes the session, autoloads dependencies, and routes the request using the `$router` object.
 
-## Author
+#### `config/`
+Contains configuration files for the application, including database settings and application settings.
 
+#### `bootstrap.php`
+Sets up the application by creating a new `Container` instance and binding the `Database` class to it.
+
+#### `routes.php`
+Defines the application routes using the `Router` class.
+
+#### `Core/Router.php`
+Resolves and handles routes based on a given URI and method.
+
+#### `Core/Session.php`
+Manages PHP sessions, including starting and destroying sessions, checking if a session key exists, and managing flash messages.
+
+#### `Core/Middleware/Middleware.php`
+An abstract class that defines a `handle` method to be implemented by middleware classes.
+
+#### `Http/Controllers`
+Contains controllers that handle requests and return responses.
+
+#### `Http/Models`
+Contains model classes that interact with the database.
+
+#### `Http/Validators`
+Contains validator classes that validate input data.
+
+#### `resources/views`
+Contains view files that are rendered by controllers.
+
+#### `resources/css`
+Contains CSS files that can be included in views.
+
+#### `utils/helperFunctions.php`
+Contains helper functions used throughout the application.
+
+### Testing Guide
+- **Install Dependencies**:
+  ```bash
+  composer install
+  ```
+- **Install PHPUnit**:
+  ```bash
+  composer require --dev phpunit/phpunit ^10.0
+  ```
+- **Configuration**: Ensure you have a `phpunit.xml` file in the root of your project.
+- **Writing Tests**: Create test files in the `tests` directory.
+- **Running Tests**:
+  ```bash
+  vendor/bin/phpunit
+  ```
+
+### Contribution
+To contribute to this project, please follow these steps:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+### Author
 - [Mai Trần Tuấn Kiệt](https://github.com/mttk2004)
 
-#### Last updated: November 28, 2024
+**Last Updated**: December 15, 2024
