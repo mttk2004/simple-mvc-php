@@ -1,0 +1,17 @@
+{% extends 'components/layout.html.twig' %}
+
+{% block title %}User {{ 8 }}{% endblock %}
+
+{% block content %}
+    <h1>User</h1>
+    <p>This is the user page.</p>
+
+    <ul>
+        <li>
+            <strong>Name:</strong> {{ user.getName() }}
+        </li>
+        <li>
+            <strong>Email:</strong> {{ user.getEmail() }}
+        </li>
+    </ul>
+{% endblock %}
