@@ -135,6 +135,7 @@ class Router
                     $params = array_combine($paramNames[1], $matches);
 
                     (new $class())->$method($params);
+                    exit();
                 } catch (Exception $e) {
                     view('errors/500', ['error' => $e->getMessage()]);
                     exit();
