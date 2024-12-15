@@ -1,6 +1,6 @@
 ## **Hướng dẫn sử dụng Carbon**
 
-**Carbon** là một thư viện rất phổ biến trong PHP, được xây dựng dựa trên `DateTime` của PHP. Nó cung cấp nhiều tính năng tiện ích để làm việc với thời gian, ngày tháng, và thời gian địa phương hóa. Dưới đây là hướng dẫn chi tiết về cách sử dụng Carbon cho người mới bắt đầu.
+là một thư viện rất phổ biến trong PHP, được xây dựng dựa trên `DateTime` của PHP. Nó cung cấp nhiều tính năng tiện ích để làm việc với thời gian, ngày tháng, và thời gian địa phương hóa. Dưới đây là hướng dẫn chi tiết về cách sử dụng Carbon cho người mới bắt đầu.
 
 ---
 
