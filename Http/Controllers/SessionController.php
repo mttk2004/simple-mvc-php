@@ -56,7 +56,7 @@ class SessionController
         $dispatcher->dispatch(new UserLoggedIn($user->getId()));
 
         // 5. Set the user in the session and redirect to the home page
-        Session::set('user', $user);
+        Session::set('auth_user', $user);
         redirect('/');
     }
 

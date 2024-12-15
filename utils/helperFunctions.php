@@ -3,9 +3,9 @@
 use Core\ResponseCode;
 use Core\Session;
 use Medoo\Medoo;
-use JetBrains\PhpStorm\NoReturn;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use JetBrains\PhpStorm\NoReturn;
 
 /**
  * Dumps the variable and ends the script.
@@ -19,7 +19,7 @@ use Monolog\Handler\StreamHandler;
     echo '<pre>';
     var_dump($var);
     echo '</pre>';
-    die();
+    exit();
 }
 
 /**
@@ -75,7 +75,7 @@ function authorize(bool $condition, int $statusCode = ResponseCode::FORBIDDEN): 
  */
 function view(string $view, array $data): void
 {
-    $data['user'] = Session::get('user');
+    $data['auth_user'] = Session::get('auth_user');
     $twig = require_once BASE_PATH . 'config/twig.php';
     echo $twig->render($view . '.html.twig', $data);
 }
@@ -90,7 +90,7 @@ function view(string $view, array $data): void
 #[NoReturn] function redirect(string $url): void
 {
     header('Location: ' . $url);
-    die();
+    exit();
 }
 
 /**

@@ -105,18 +105,21 @@ class Router
     }
 
     /**
-     * Routes the request to the appropriate controller.
+     * Resolves the route based on the given URI and method.
      *
-     * @param string $uri    The URI of the request.
-     * @param string $method The HTTP method of the request.
+     * @param string $uri    The URI to resolve.
+     * @param string $method The method to resolve.
      *
      * @return void
-     * @throws Exception if middleware cannot resolved.
+     * @throws Exception
      */
     #[NoReturn] public function route(string $uri, string $method): void
     {
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+            $pattern = preg_replace('/\{[^\}]+\}/', '([^/]+)', $route['uri']);
+            if (preg_match('#^' . $pattern . '$#', $uri, $matches) && $route['method'] === strtoupper($method)) {
+                array_shift($matches); // Remove the full match from the beginning of the matches array
+
                 if ($route['middleware']) {
                     Middleware::resolve($route['middleware']);
                 }
@@ -126,7 +129,12 @@ class Router
                     if (!class_exists($class) || !method_exists($class, $method)) {
                         throw new Exception('Controller or method not found');
                     }
-                    (new $class())->$method();
+
+                    // Extract parameter names from the route URI
+                    preg_match_all('/\{([^\}]+)\}/', $route['uri'], $paramNames);
+                    $params = array_combine($paramNames[1], $matches);
+
+                    (new $class())->$method($params);
                 } catch (Exception $e) {
                     view('errors/500', ['error' => $e->getMessage()]);
                     exit();
@@ -156,9 +164,11 @@ class Router
      */
     #[NoReturn] protected function abort(int $code = 404): void
     {
-        http_response_code($code);
+        if (!headers_sent()) {
+            http_response_code($code);
+        }
         require_once(BASE_PATH . 'resources/views/errors/' . $code . '.html.twig');
-        exit;
+        exit();
     }
 
     /**

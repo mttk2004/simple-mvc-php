@@ -16,3 +16,4 @@ $router->post('/login', [SessionController::class, 'store'])->only('guest');
 $router->delete('/logout', [SessionController::class, 'destroy'])->only('auth');
 
 $router->get('/users', [UserController::class, 'index'])->only('guest');
+$router->get('/users/{id}', [UserController::class, 'show'])->only('guest');
